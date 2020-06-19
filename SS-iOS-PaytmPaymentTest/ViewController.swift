@@ -14,15 +14,18 @@ class ViewController: UIViewController {
     @IBOutlet weak var btnProceedOutlet: UIButton!
     var transitiondata : [String : AnyObject] = [:]
     
+    var appinvoke = AIHandler()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         btnProceedOutlet.backgroundColor =  .gray
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
+        print("appinvoke======>>>>>\(appinvoke)")
     }
     @IBAction func btnApiCall(_ sender: Any) {
         DispatchQueue.main.async(execute: {
@@ -39,7 +42,7 @@ class ViewController: UIViewController {
         print("amount===>\(transitiondata["amount"] ?? "" as AnyObject)")
         print("callbackurl===>\(transitiondata["callbackurl"] ?? "" as AnyObject)")
         
-        AIHandler().openPaytm(merchantId: (transitiondata["mid"] as? String) ?? "", orderId: (transitiondata["orderId"] as? String) ?? "", txnToken: (transitiondata["txnToken"] as? String) ?? "", amount: (transitiondata["amount"] as? String) ?? "", redirectionUrl : (transitiondata["callbackurl"] as? String) ?? "", delegate: self)
+        appinvoke.openPaytm(merchantId: (transitiondata["mid"] as? String) ?? "", orderId: (transitiondata["orderId"] as? String) ?? "", txnToken: (transitiondata["txnToken"] as? String) ?? "", amount: (transitiondata["amount"] as? String) ?? "", redirectionUrl : (transitiondata["callbackurl"] as? String) ?? "", delegate: self)
     }
     
     
@@ -109,7 +112,6 @@ extension ViewController : AIDelegate {
         print("PayTm_Response======>>>>\(response)")
         print("PayTmSuccessOrNot=======>>>\(success)")
     }
-    
     
 }
 extension Dictionary {
